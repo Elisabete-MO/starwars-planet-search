@@ -1,0 +1,15 @@
+.loading {
+  align-items: flex-end;
+  background-attachment: fixed;
+  background-image: url('../imgs/projectIntro.gif');
+  background-size:cover;
+  display: flex;
+  font-size: 0.6em;
+  height: 99.5%;
+  justify-content: end;
+  left: 50%;
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 99.7%;
+}
