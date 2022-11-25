@@ -2,21 +2,17 @@ import React, { useState } from 'react';
 import '../styles/planets_form.css';
 
 export default function PlanetsForm() {
-  const [filters, setFilters] = useState({})
-  // state = {
-  //   id: 0,
-  //   value: '',
-  //   currency: 'USD',
-  //   method: 'Cartão de débito',
-  //   tag: 'Alimentação',
-  //   description: '',
-  // };
+  const [filters, setFilters] = useState({
+    name: '',
+    column: '',
+    comparison: '',
+    value: 0,
+    sort: '',
+  });
 
-  // handleChange = ({ target }) => {
-  //   const { name, value } = target;
-  //   this.setState({ [name]: value });
-  // };
-
+  const handleChange = ({ target }) => {
+    setFilters({ ...filters, [target.name]: target.value });
+  };
   // clearData = () => {
   //   this.setState({
   //     value: '',
@@ -24,8 +20,6 @@ export default function PlanetsForm() {
   //     method: 'Cartão de débito',
   //     tag: 'Alimentação',
   //     description: '',
-  //   });
-  // };
   return (
     <main className="box_form">
       <label htmlFor="nameFilter">
@@ -34,10 +28,10 @@ export default function PlanetsForm() {
           className="nameFilter"
           data-testid="name-filter"
           id="nameFilter"
-          name="nameFilter"
+          name="name"
           placeholder="Encontre um planeta"
-          value={ name }
-          onChange={ this.handleChange }
+          value={ filters.name }
+          onChange={ handleChange }
         />
       </label>
       <div className="box_filters">
@@ -48,18 +42,14 @@ export default function PlanetsForm() {
             data-testid="column-filter"
             id="selectCurrencies"
             name="column"
-            value={ column }
-            onChange={ this.handleChange }
+            value={ filters.column }
+            onChange={ handleChange }
           >
             <option value="population">population</option>
             <option value="orbital_period">orbital_period</option>
             <option value="diameter">diameter</option>
             <option value="rotation_period">rotation_period</option>
             <option value="surface_water">surface_water</option>
-            {/* { currencies.map((acc) => (
-              <option key={ acc } data-testid="currency" name={ acc }>
-                { acc }
-              </option>))} */}
           </select>
         </label>
         <label htmlFor="selectComparison">
@@ -69,8 +59,8 @@ export default function PlanetsForm() {
             data-testid="comparison-filter"
             id="selectComparison"
             name="comparison"
-            value={ comparison }
-            onChange={ this.handleChange }
+            value={ filters.comparison }
+            onChange={ handleChange }
           >
             <option value="maior que">maior que</option>
             <option value="menor que">menor que</option>
@@ -84,8 +74,8 @@ export default function PlanetsForm() {
             data-testid="value-filter"
             id="inputValue"
             name="value"
-            value={ value }
-            onChange={ this.handleChange }
+            value={ filters.value }
+            onChange={ handleChange }
           />
         </label>
         <button
@@ -107,8 +97,8 @@ export default function PlanetsForm() {
             id="sortColumn"
             data-testid="column-sort"
             name="sort"
-            value={ sort }
-            onChange={ this.handleChange }
+            value={ filters.sort }
+            onChange={ handleChange }
           >
             <option value="population">population</option>
             <option value="orbital_period">orbital_period</option>
@@ -123,7 +113,7 @@ export default function PlanetsForm() {
             <input
               data-testid="column-sort-input-asc"
               type="radio"
-              name="asc"
+              name="radio"
               className="radio"
               value="ASC"
               id="ASC"
@@ -134,7 +124,7 @@ export default function PlanetsForm() {
             <input
               data-testid="column-sort-input-desc"
               type="radio"
-              name="desc"
+              name="radio"
               className="radio"
               value="DESC"
               id="DESC"
