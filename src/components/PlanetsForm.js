@@ -8,6 +8,7 @@ export default function PlanetsForm() {
     comparison: '',
     value: 0,
     sort: '',
+    radio: 'ASC',
   });
 
   const handleChange = ({ target }) => {
@@ -45,11 +46,12 @@ export default function PlanetsForm() {
             value={ filters.column }
             onChange={ handleChange }
           >
-            <option value="population">population</option>
-            <option value="orbital_period">orbital_period</option>
-            <option value="diameter">diameter</option>
-            <option value="rotation_period">rotation_period</option>
-            <option value="surface_water">surface_water</option>
+            <option value="">Selecione</option>
+            <option value="population">População</option>
+            <option value="orbital_period">Período de Órbita</option>
+            <option value="diameter">Diâmetro</option>
+            <option value="rotation_period">Período de Rotação</option>
+            <option value="surface_water">Superfície com Água</option>
           </select>
         </label>
         <label htmlFor="selectComparison">
@@ -62,6 +64,7 @@ export default function PlanetsForm() {
             value={ filters.comparison }
             onChange={ handleChange }
           >
+            <option value="">Selecione</option>
             <option value="maior que">maior que</option>
             <option value="menor que">menor que</option>
             <option value="igual a">igual a</option>
@@ -100,11 +103,12 @@ export default function PlanetsForm() {
             value={ filters.sort }
             onChange={ handleChange }
           >
-            <option value="population">population</option>
-            <option value="orbital_period">orbital_period</option>
-            <option value="diameter">diameter</option>
-            <option value="rotation_period">rotation_period</option>
-            <option value="surface_water">surface_water</option>
+            <option value="">Selecione</option>
+            <option value="population">População</option>
+            <option value="orbital_period">Período de Órbita</option>
+            <option value="diameter">Diâmetro</option>
+            <option value="rotation_period">Período de Rotação</option>
+            <option value="surface_water">Superfície com Água</option>
           </select>
         </label>
         <div id="radio-container">
@@ -117,6 +121,8 @@ export default function PlanetsForm() {
               className="radio"
               value="ASC"
               id="ASC"
+              onChange={ handleChange }
+              checked
             />
           </label>
           <label htmlFor="DESC">
@@ -128,6 +134,7 @@ export default function PlanetsForm() {
               className="radio"
               value="DESC"
               id="DESC"
+              onChange={ handleChange }
             />
           </label>
         </div>

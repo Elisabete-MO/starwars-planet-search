@@ -31,8 +31,8 @@ button {
 }
 
 button:hover {
-  box-shadow: 0 0 5px #03e9f4, 0 0 25px #03e9f4, 0 0 50px #03e9f4, 0 0 100px #03e9f4;
   background-color: rgba(141, 141, 141, 0.5); 
+  font-weight: 900;
   /* box-shadow: 0 10px 100px #03e9f4; */
   /* background: #03e9f4; */
 }
