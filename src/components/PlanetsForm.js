@@ -1,18 +1,51 @@
-import React, { useState } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
+import StarWarsContext from '../context/StarWarsContext';
 import '../styles/planets_form.css';
+import icon from '../imgs/icons/icons8-darth-vader-30.png';
 
 export default function PlanetsForm() {
-  const [filters, setFilters] = useState({
+  const { data, filters, setFilters, setSearch } = useContext(StarWarsContext);
+
+  const [inputs, setInputs] = useState({
     name: '',
     column: '',
     comparison: '',
     value: 0,
     sort: '',
     radio: 'ASC',
+    var: true,
   });
 
+  // salva os inputs no estado da aplicação
   const handleChange = ({ target }) => {
+    setInputs({ ...inputs, [target.name]: target.value });
     setFilters({ ...filters, [target.name]: target.value });
+  };
+
+  const filterData = () => {
+    const dataFilter = data.filter((el) => el.name.toUpperCase()
+      .includes(filters.name.toUpperCase()));
+    setSearch(dataFilter);
+  };
+
+  // salva os valores de filtros no contexto para depois serem apresentados e usados como filtros e texto
+  useEffect(() => {
+    filterData();
+  }, [inputs]);
+
+  const appFilters = () => {
+    setInputs({ ...inputs, var: false });
+  };
+
+  const removeFilter = () => {
+    setFilters({ name: '',
+      column: '',
+      comparison: '',
+      value: 0,
+      sort: '',
+      radio: 'ASC',
+    });
+    setInputs({ ...inputs, var: true });
   };
   // clearData = () => {
   //   this.setState({
@@ -31,7 +64,7 @@ export default function PlanetsForm() {
           id="nameFilter"
           name="name"
           placeholder="Encontre um planeta"
-          value={ filters.name }
+          value={ inputs.name }
           onChange={ handleChange }
         />
       </label>
@@ -43,7 +76,7 @@ export default function PlanetsForm() {
             data-testid="column-filter"
             id="selectCurrencies"
             name="column"
-            value={ filters.column }
+            value={ inputs.column }
             onChange={ handleChange }
           >
             <option value="">Selecione</option>
@@ -61,7 +94,7 @@ export default function PlanetsForm() {
             data-testid="comparison-filter"
             id="selectComparison"
             name="comparison"
-            value={ filters.comparison }
+            value={ inputs.comparison }
             onChange={ handleChange }
           >
             <option value="">Selecione</option>
@@ -77,7 +110,7 @@ export default function PlanetsForm() {
             data-testid="value-filter"
             id="inputValue"
             name="value"
-            value={ filters.value }
+            value={ inputs.value }
             onChange={ handleChange }
           />
         </label>
@@ -85,11 +118,7 @@ export default function PlanetsForm() {
           type="button"
           className="btnFilter"
           data-testid="button-filter"
-          // onClick={ () => {
-          //   this.setState({ id: (expenses.length + 1) });
-          //   dispatch(fetchExpenses(this.state));
-          //   this.clearData();
-          // } }
+          onClick={ appFilters }
         >
           Filtrar
         </button>
@@ -100,7 +129,7 @@ export default function PlanetsForm() {
             id="sortColumn"
             data-testid="column-sort"
             name="sort"
-            value={ filters.sort }
+            value={ inputs.sort }
             onChange={ handleChange }
           >
             <option value="">Selecione</option>
@@ -161,6 +190,29 @@ export default function PlanetsForm() {
           // } }
         >
           Limpar Filtros
+        </button>
+      </div>
+      <div className="appFilters">
+        <button
+          type="button"
+          className="btnAppFilters"
+          onClick={ removeFilter }
+          disabled={ inputs.var }
+        >
+          {filters.name}
+          +
+          {filters.column}
+          +
+          {filters.comparison}
+          +
+          {filters.value}
+          <img
+            src={ icon }
+            width="15px"
+            alt="excluir"
+            name="icon"
+            hidden={ inputs.var }
+          />
         </button>
       </div>
     </main>

@@ -5,14 +5,23 @@ import requestAPIFetch from '../services/RequestAPI';
 
 function StarWarsProvider({ children }) {
   const [data, setData] = useState([]);
+  const [filters, setFilters] = useState({}); /* para pegar os filtros do PlanetsForm e salvar no contexto */
+  const [search, setSearch] = useState([]); /* contem o resultado da pesquisa por nome */
 
   useEffect(() => {
-    requestAPIFetch().then((result) => setData(result));
+    requestAPIFetch().then((result) => {
+      setData(result);
+      setSearch(result);
+    });
   }, []);
 
   const value = useMemo(() => ({
     data,
-  }), [data]);
+    filters,
+    setFilters,
+    search,
+    setSearch,
+  }), [data, filters, setFilters, search, setSearch]);
 
   return (
     <StarWarsContext.Provider value={ value }>
