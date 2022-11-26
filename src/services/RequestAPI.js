@@ -1,4 +1,4 @@
-import axios from 'axios';
+// import axios from 'axios';
 
 const requestAPIFetch = async () => {
   try {
@@ -10,18 +10,18 @@ const requestAPIFetch = async () => {
   }
 };
 
-const axiosAPI = axios.create({
-  baseURL: 'https://swapi.dev/api/planets',
-});
+// const axiosAPI = axios.create({
+//   baseURL: 'https://swapi.dev/api/planets',
+// });
 
-export const requestAPIAxios = async () => {
-  try {
-    const { data: { results } } = await axiosAPI.get('/character');
-    console.log('axios', results);
-    return results;
-  } catch (error) {
-    throw new Error(error.message);
-  }
-};
+// export const requestAPIAxios = async () => {
+//   try {
+//     const { data: { results } } = await axiosAPI.get('/character');
+//     console.log('axios', results);
+//     return results;
+//   } catch (error) {
+//     throw new Error(error.message);
+//   }
+// };
 
 export default requestAPIFetch;

@@ -60,15 +60,14 @@ input , select {
   /* width: 80%; */
 }
 
-/* h1 {
-  color: white;
-  font-size: 40px;
-  text-shadow: 3px 3px 15px rgba(255, 255, 255, 0.445);
+th , td , tr {
+  font-size: 10px;
+  text-shadow: none;
 }
 
-h2 {
-  color: rgba(225, 225, 225, 0.01);
-} */
+tbody {
+  font-family: 'Jura';
+}
 
 p, label {
   color: rgb(233, 233, 233);  

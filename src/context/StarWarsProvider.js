@@ -1,8 +1,9 @@
 import React, { useEffect, useState, useMemo } from 'react';
+import PropTypes from 'prop-types';
 import StarWarsContext from './StarWarsContext';
 import requestAPIFetch from '../services/RequestAPI';
 
-export default function StarWarsProvider({ children }) {
+function StarWarsProvider({ children }) {
   const [data, setData] = useState([]);
 
   useEffect(() => {
@@ -14,8 +15,14 @@ export default function StarWarsProvider({ children }) {
   }), [data]);
 
   return (
-    <StarWarsContext.Provider value={ data }>
+    <StarWarsContext.Provider value={ value }>
       { children }
     </StarWarsContext.Provider>
   );
 }
+
+StarWarsProvider.propTypes = {
+  children: PropTypes.element.isRequired,
+};
+
+export default StarWarsProvider;

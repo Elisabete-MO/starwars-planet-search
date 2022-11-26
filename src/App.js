@@ -13,7 +13,7 @@ function App() {
         <Route path="/loading" component={ Loading } />
         {/* {<Route exact path="/" component={ App } /> */}
       </Switch>
-      <div>
+      <div className="content">
         <Header />
         <PlanetsForm />
         <Table />

@@ -1,48 +1,42 @@
-import React, { Component } from 'react';
+import React, { useContext } from 'react';
+import StarWarsContext from '../context/StarWarsContext';
 import '../styles/table_content.css';
 
-class TableContent extends Component {
-  handleDelete = ({ target }) => {
-    dispatch(deleteExpenses(target.id));
-  };
+export default function TableContent() {
+  const { data } = useContext(StarWarsContext);
+  // handleDelete = ({ target }) => {
+  //   dispatch(deleteExpenses(target.id));
+  // };
+  return (
+    <tbody>
+      {
+        data.map((el) => (
+          <tr key={ el.name }>
+            <td data-testid="planet-name">{ el.name }</td>
+            <td>{ el.rotation_period }</td>
+            <td>{ el.orbital_period }</td>
+            <td>{ el.diameter }</td>
+            <td>{ el.climate }</td>
+            <td>{ el.gravity }</td>
+            <td>{ el.terrain }</td>
+            <td>{ el.surface_water }</td>
+            <td>{ el.population }</td>
+            <td>{ el.films }</td>
+            <td>{ el.created }</td>
+            <td>{ el.edited }</td>
+            <td>{ el.url }</td>
 
-  render() {
-    return (
-      <tr id={ id }>
-        {/* Adicione o atributo data-testid com o valor planet-name em todos os elementos da tabela que possuem o nome de um planeta. */}
-      {/* //   <td>{ description }</td> */}
-      {/* //   <td>{ tag }</td> */}
-      {/* //   <td>{ method }</td> */}
-      {/* //   <td> */}
-      {/* //     { */}
-      {/* //       (value) === '' */}
-      {/* //         ? '0.00' */}
-      {/* //         : parseFloat(value).toFixed(2) */}
-      {/* //     } */}
-      {/* //   </td> */}
-      {/* //   <td>{ exchangeRates[currency].name }</td> */}
-      {/* //   <td>{ parseFloat(exchangeRates[currency].ask).toFixed(2) }</td> */}
-      {/* //   <td> */}
-      {/* //     { */}
-      {/* //       Number.isNaN(value) */}
-      {/* //         ? '0.00' */}
-      {/* //         : (value * exchangeRates[currency].ask).toFixed(2) */}
-      {/* //     } */}
-      {/* //   </td> */}
-      {/* //   <td>Real</td> */}
-      {/* //   <td> */}
-      {/* //     <button */}
-      {/* //       type="button" */}
-      {/* //       data-testid="delete-btn" */}
-      {/* //       id={ id } */}
-      {/* //       onClick={ this.handleDelete } */}
-      {/* //     > */}
-      {/* //       Excluir */}
-      {/* //     </button> */}
-      {/* //   </td> */}
-      </tr>
-    );
-  }
+            {/* <td>
+            {
+             (value) === ''              Number.isNaN(value)
+
+               ? '0.00'
+               : parseFloat(value).toFixed(2)
+           }
+         </td> */}
+          </tr>
+        ))
+      }
+    </tbody>
+  );
 }
-
-export default TableContent;
