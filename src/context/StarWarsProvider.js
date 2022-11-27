@@ -4,9 +4,27 @@ import StarWarsContext from './StarWarsContext';
 import requestAPIFetch from '../services/RequestAPI';
 
 function StarWarsProvider({ children }) {
+  /* recebe os valores da API */
   const [data, setData] = useState([]);
-  const [filters, setFilters] = useState({}); /* para pegar os filtros do PlanetsForm e salvar no contexto */
-  const [search, setSearch] = useState([]); /* contem o resultado da pesquisa por nome */
+
+  /* para pegar os filtros do PlanetsForm e salvar no contexto */
+  const [selected, setSelected] = useState({
+    column: 'population',
+    comparison: 'maior que',
+    value: 0,
+  });
+
+  /* pega os filtros (coluna, <=>, valor) selecionados */
+  const [selectedFilters, setSelectedFilters] = useState([]);
+
+  /* para pegar os filtros de ordenação */
+  const [sort, setSort] = useState({
+    column: 'population',
+    direction: 'ASC',
+  });
+
+  /* contem o resultado da pesquisa por nome */
+  const [search, setSearch] = useState([]);
 
   useEffect(() => {
     requestAPIFetch().then((result) => {
@@ -17,11 +35,16 @@ function StarWarsProvider({ children }) {
 
   const value = useMemo(() => ({
     data,
-    filters,
-    setFilters,
+    selected,
+    setSelected,
     search,
     setSearch,
-  }), [data, filters, setFilters, search, setSearch]);
+    sort,
+    setSort,
+    selectedFilters,
+    setSelectedFilters,
+  }), [data, selected, setSelected, search, setSearch,
+    sort, setSort, selectedFilters, setSelectedFilters]);
 
   return (
     <StarWarsContext.Provider value={ value }>

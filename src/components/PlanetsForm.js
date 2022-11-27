@@ -4,56 +4,22 @@ import '../styles/planets_form.css';
 import icon from '../imgs/icons/icons8-darth-vader-30.png';
 
 export default function PlanetsForm() {
-  const { data, filters, setFilters, setSearch } = useContext(StarWarsContext);
+  const { data, selected, setSelected, selectedFilters, setSelectedFilters,
+    setSearch, sort, setSort } = useContext(StarWarsContext);
 
-  const [inputs, setInputs] = useState({
-    name: '',
-    column: '',
-    comparison: '',
-    value: 0,
-    sort: '',
-    radio: 'ASC',
-    var: true,
-  });
-
-  // salva os inputs no estado da aplicação
-  const handleChange = ({ target }) => {
-    setInputs({ ...inputs, [target.name]: target.value });
-    setFilters({ ...filters, [target.name]: target.value });
-  };
+  /* filtra pelo nome do planeta */
+  const [inputs, setInputs] = useState({ name: '' });
 
   const filterData = () => {
     const dataFilter = data.filter((el) => el.name.toUpperCase()
-      .includes(filters.name.toUpperCase()));
+      .includes(inputs.name.toUpperCase()));
     setSearch(dataFilter);
   };
 
-  // salva os valores de filtros no contexto para depois serem apresentados e usados como filtros e texto
   useEffect(() => {
     filterData();
-  }, [inputs]);
+  }, [inputs.name]);
 
-  const appFilters = () => {
-    setInputs({ ...inputs, var: false });
-  };
-
-  const removeFilter = () => {
-    setFilters({ name: '',
-      column: '',
-      comparison: '',
-      value: 0,
-      sort: '',
-      radio: 'ASC',
-    });
-    setInputs({ ...inputs, var: true });
-  };
-  // clearData = () => {
-  //   this.setState({
-  //     value: '',
-  //     currency: 'USD',
-  //     method: 'Cartão de débito',
-  //     tag: 'Alimentação',
-  //     description: '',
   return (
     <main className="box_form">
       <label htmlFor="nameFilter">
@@ -65,7 +31,7 @@ export default function PlanetsForm() {
           name="name"
           placeholder="Encontre um planeta"
           value={ inputs.name }
-          onChange={ handleChange }
+          onChange={ (e) => { setInputs({ ...inputs, name: e.target.value }); } } // salva os inputs no estado da aplicação
         />
       </label>
       <div className="box_filters">
@@ -76,15 +42,15 @@ export default function PlanetsForm() {
             data-testid="column-filter"
             id="selectCurrencies"
             name="column"
-            value={ inputs.column }
-            onChange={ handleChange }
+            value={ selected.column }
+            onChange={ (e) => setSelected({ ...selected, column: e.target.value }) }
           >
-            <option value="">Selecione</option>
-            <option value="population">População</option>
-            <option value="orbital_period">Período de Órbita</option>
-            <option value="diameter">Diâmetro</option>
-            <option value="rotation_period">Período de Rotação</option>
-            <option value="surface_water">Superfície com Água</option>
+            {/* <option value="">Selecione</option> */}
+            <option value="population">population</option>
+            <option value="orbital_period">orbital_period</option>
+            <option value="diameter">diameter</option>
+            <option value="rotation_period">rotation_period</option>
+            <option value="surface_water">surface_water</option>
           </select>
         </label>
         <label htmlFor="selectComparison">
@@ -94,10 +60,10 @@ export default function PlanetsForm() {
             data-testid="comparison-filter"
             id="selectComparison"
             name="comparison"
-            value={ inputs.comparison }
-            onChange={ handleChange }
+            value={ selected.comparison }
+            onChange={ (e) => setSelected({ ...selected, comparison: e.target.value }) }
           >
-            <option value="">Selecione</option>
+            {/* <option value="">Selecione</option> */}
             <option value="maior que">maior que</option>
             <option value="menor que">menor que</option>
             <option value="igual a">igual a</option>
@@ -110,17 +76,39 @@ export default function PlanetsForm() {
             data-testid="value-filter"
             id="inputValue"
             name="value"
-            value={ inputs.value }
-            onChange={ handleChange }
+            value={ selected.value }
+            onChange={ (e) => setSelected({ ...selected, value: e.target.value }) }
           />
         </label>
         <button
           type="button"
           className="btnFilter"
           data-testid="button-filter"
-          onClick={ appFilters }
+          onClick={ () => {
+            setSelectedFilters([...selectedFilters, selected]);
+            setSelected({
+              column: 'population',
+              comparison: 'maior que',
+              value: 0,
+            });
+          } }
         >
           Filtrar
+        </button>
+        <button
+          type="button"
+          className="btnRem"
+          data-testid="button-remove-filters"
+          onClick={ () => {
+            setSelectedFilters([]);
+            setSelected({
+              column: 'population',
+              comparison: 'maior que',
+              value: 0,
+            });
+          } }
+        >
+          Limpar Filtros
         </button>
         <label htmlFor="sortColumn">
           Ordenar
@@ -129,10 +117,11 @@ export default function PlanetsForm() {
             id="sortColumn"
             data-testid="column-sort"
             name="sort"
-            value={ inputs.sort }
-            onChange={ handleChange }
+            value={ inputs.column }
+            onChange={ ({ target }) => setInputs({ ...inputs,
+              column: target.value }) }
           >
-            <option value="">Selecione</option>
+            {/* <option value="">Selecione</option> */}
             <option value="population">População</option>
             <option value="orbital_period">Período de Órbita</option>
             <option value="diameter">Diâmetro</option>
@@ -150,8 +139,9 @@ export default function PlanetsForm() {
               className="radio"
               value="ASC"
               id="ASC"
-              onChange={ handleChange }
-              checked
+              onChange={ ({ target }) => setInputs({ ...inputs,
+                direction: target.value }) }
+              checked={ inputs.direction === 'ASC' }
             />
           </label>
           <label htmlFor="DESC">
@@ -163,7 +153,9 @@ export default function PlanetsForm() {
               className="radio"
               value="DESC"
               id="DESC"
-              onChange={ handleChange }
+              onChange={ ({ target }) => setInputs({ ...inputs,
+                direction: target.value }) }
+              checked={ inputs.direction === 'DESC' }
             />
           </label>
         </div>
@@ -171,50 +163,38 @@ export default function PlanetsForm() {
           type="button"
           className="btnSort"
           data-testid="column-sort-button"
-          // onClick={ () => {
-          //   this.setState({ id: (expenses.length + 1) });
-          //   dispatch(fetchExpenses(this.state));
-          //   this.clearData();
-          // } }
+          onClick={ () => setSort({ ...sort,
+            direction: inputs.direction,
+            column: inputs.column }) }
         >
           Ordenar
         </button>
-        <button
-          type="button"
-          className="btnRem"
-          data-testid="button-remove-filters"
-          // onClick={ () => {
-          //   this.setState({ id: (expenses.length + 1) });
-          //   dispatch(fetchExpenses(this.state));
-          //   this.clearData();
-          // } }
-        >
-          Limpar Filtros
-        </button>
       </div>
-      <div className="appFilters">
-        <button
-          type="button"
-          className="btnAppFilters"
-          onClick={ removeFilter }
-          disabled={ inputs.var }
-        >
-          {filters.name}
-          +
-          {filters.column}
-          +
-          {filters.comparison}
-          +
-          {filters.value}
-          <img
-            src={ icon }
-            width="15px"
-            alt="excluir"
-            name="icon"
-            hidden={ inputs.var }
-          />
-        </button>
-      </div>
+      {selectedFilters.map((filter, index) => (
+        <div className="appFilters" key={ index }>
+          <button
+            type="button"
+            className="btnAppFilters"
+            onClick={ () => {
+              const cloneArray = [...selectedFilters];
+              cloneArray.splice(index, 1);
+              setSelectedFilters(cloneArray);
+            } }
+          >
+            <img
+              src={ icon }
+              width="18px"
+              alt="excluir"
+              name="icon"
+            />
+            {filter.column}
+            +
+            {filter.comparison}
+            +
+            {filter.value}
+          </button>
+        </div>
+      ))}
     </main>
   );
 }

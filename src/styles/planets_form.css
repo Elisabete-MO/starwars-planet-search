@@ -42,8 +42,12 @@
   width: 100%;
 }
 
+.appFilters img {
+  margin-right: 10px;
+}
+
 .btnAppFilters {
-  align-items: flex-end;
+  align-items: center;
   border: none;
   display: flex;
   font-size: 10pt;
