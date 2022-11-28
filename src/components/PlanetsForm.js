@@ -20,6 +20,9 @@ export default function PlanetsForm() {
     filterData();
   }, [inputs.name]);
 
+  const dropFilter = (opcao) => !selectedFilters
+    .find((filtro) => opcao === filtro.column);
+
   return (
     <main className="box_form">
       <label htmlFor="nameFilter">
@@ -46,11 +49,13 @@ export default function PlanetsForm() {
             onChange={ (e) => setSelected({ ...selected, column: e.target.value }) }
           >
             {/* <option value="">Selecione</option> */}
-            <option value="population">population</option>
-            <option value="orbital_period">orbital_period</option>
-            <option value="diameter">diameter</option>
-            <option value="rotation_period">rotation_period</option>
-            <option value="surface_water">surface_water</option>
+            {['population', 'orbital_period', 'diameter',
+              'rotation_period', 'surface_water']
+              .filter(dropFilter).map((column) => (
+                <option value={ column } key={ column }>
+                  {column}
+                </option>
+              ))}
           </select>
         </label>
         <label htmlFor="selectComparison">
