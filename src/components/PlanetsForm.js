@@ -176,7 +176,7 @@ export default function PlanetsForm() {
         </button>
       </div>
       {selectedFilters.map((filter, index) => (
-        <div className="appFilters" key={ index }>
+        <div className="appFilters" data-testid="filter" key={ index }>
           <button
             type="button"
             className="btnAppFilters"
