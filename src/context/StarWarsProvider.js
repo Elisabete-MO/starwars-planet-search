@@ -18,7 +18,7 @@ function StarWarsProvider({ children }) {
   const [selectedFilters, setSelectedFilters] = useState([]);
 
   /* para pegar os filtros de ordenação */
-  const [sort, setSort] = useState({
+  const [order, setOrder] = useState({
     column: 'population',
     direction: 'ASC',
   });
@@ -39,12 +39,12 @@ function StarWarsProvider({ children }) {
     setSelected,
     search,
     setSearch,
-    sort,
-    setSort,
+    order,
+    setOrder,
     selectedFilters,
     setSelectedFilters,
   }), [data, selected, setSelected, search, setSearch,
-    sort, setSort, selectedFilters, setSelectedFilters]);
+    order, setOrder, selectedFilters, setSelectedFilters]);
 
   return (
     <StarWarsContext.Provider value={ value }>

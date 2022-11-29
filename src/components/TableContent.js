@@ -3,7 +3,7 @@ import StarWarsContext from '../context/StarWarsContext';
 import '../styles/table_content.css';
 
 export default function TableContent() {
-  const { search, selectedFilters, sort } = useContext(StarWarsContext);
+  const { search, selectedFilters, order } = useContext(StarWarsContext);
 
   const appFilters = () => {
     const filterResults = search.filter((el) => {
@@ -25,10 +25,22 @@ export default function TableContent() {
   };
 
   const dataSort = (a, b) => {
-    const { column, direction } = sort;
+    // const letters = [];
+    // const numbers = [];
+    const { column, direction } = order;
     const val = -1;
     return (direction === 'ASC')
-      ? ((a[column]) - (b[column])) : ((a[column]) - (b[column])) * val;
+      ? /[A-Za-z]/.test(a[column]) - /[A-Za-z]/.test(b[column]) || a[column] - b[column]
+      : ((parseInt(a[column], 10)) - (parseInt(b[column], 10))) * val;
+    // if (column === 'population') {
+    //   for (let i = 0; i < arr.length; i += 1) {
+    //     if (arr[i].population === 'unknow') letters.push(arr[i]);
+    //     else numbers.push(arr[i]);
+    //   }
+    // }
+    // if (direction === 'ASC') numbers[column].sort((a, b) => a - b);
+    // else numbers[column].sort((a, b) => b - a);
+    // return numbers.concat(letters);
   };
 
   return (

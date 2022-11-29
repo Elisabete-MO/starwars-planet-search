@@ -5,10 +5,15 @@ import icon from '../imgs/icons/icons8-darth-vader-30.png';
 
 export default function PlanetsForm() {
   const { data, selected, setSelected, selectedFilters, setSelectedFilters,
-    setSearch, sort, setSort } = useContext(StarWarsContext);
+    setSearch, order, setOrder } = useContext(StarWarsContext);
 
   /* filtra pelo nome do planeta */
   const [inputs, setInputs] = useState({ name: '' });
+
+  const [sort, setSort] = useState({
+    column: 'population',
+    direction: 'ASC',
+  });
 
   const filterData = () => {
     const dataFilter = data.filter((el) => el.name.toUpperCase()
@@ -20,8 +25,8 @@ export default function PlanetsForm() {
     filterData();
   }, [inputs.name]);
 
-  const dropFilter = (opcao) => !selectedFilters
-    .find((filtro) => opcao === filtro.column);
+  const dropFilter = (op) => !selectedFilters
+    .find((filtro) => op === filtro.column);
 
   return (
     <main className="box_form">
@@ -122,8 +127,8 @@ export default function PlanetsForm() {
             id="sortColumn"
             data-testid="column-sort"
             name="sort"
-            value={ inputs.column }
-            onChange={ ({ target }) => setInputs({ ...inputs,
+            value={ sort.column }
+            onChange={ ({ target }) => setSort({ ...sort,
               column: target.value }) }
           >
             {/* <option value="">Selecione</option> */}
@@ -144,9 +149,9 @@ export default function PlanetsForm() {
               className="radio"
               value="ASC"
               id="ASC"
-              onChange={ ({ target }) => setInputs({ ...inputs,
+              onChange={ ({ target }) => setSort({ ...sort,
                 direction: target.value }) }
-              checked={ inputs.direction === 'ASC' }
+              checked={ sort.direction === 'ASC' }
             />
           </label>
           <label htmlFor="DESC">
@@ -158,9 +163,9 @@ export default function PlanetsForm() {
               className="radio"
               value="DESC"
               id="DESC"
-              onChange={ ({ target }) => setInputs({ ...inputs,
+              onChange={ ({ target }) => setSort({ ...sort,
                 direction: target.value }) }
-              checked={ inputs.direction === 'DESC' }
+              checked={ sort.direction === 'DESC' }
             />
           </label>
         </div>
@@ -168,9 +173,10 @@ export default function PlanetsForm() {
           type="button"
           className="btnSort"
           data-testid="column-sort-button"
-          onClick={ () => setSort({ ...sort,
-            direction: inputs.direction,
-            column: inputs.column }) }
+          onClick={ () => setOrder({ ...order,
+            direction: sort.direction,
+            column: sort.column,
+          }) }
         >
           Ordenar
         </button>
