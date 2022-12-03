@@ -9,9 +9,8 @@ ReactDOM
   .createRoot(document.getElementById('root'))
   .render(
     // <BrowserRouter>
-      <StarWarsProvider displayName="Context Display Name">
-        <App />
-      </StarWarsProvider>
+    <StarWarsProvider displayName="Context Display Name">
+      <App />
+    </StarWarsProvider>,
     // </BrowserRouter>,
   );
-  

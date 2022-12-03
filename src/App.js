@@ -9,8 +9,8 @@ export default function App() {
   return (
     <>
       {/* <Switch> */}
-        {/* <Route path="/loading" component={ Loading } /> */}
-        {/* {<Route exact path="/" component={ App } /> */}
+      {/* <Route path="/loading" component={ Loading } /> */}
+      {/* {<Route exact path="/" component={ App } /> */}
       {/* </Switch> */}
       <div className="content">
         <Header />
