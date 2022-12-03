@@ -3,7 +3,7 @@
 const requestAPIFetch = async () => {
   try {
     const request = await fetch('https://swapi.py4e.com/api/planets');
-    
+//  const request = await fetch('https://swapi.dev/api/planets');
     const { results } = await request.json();
     return results;
   } catch (error) {

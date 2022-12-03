@@ -25,3 +25,7 @@ yarn-error.log*
 
 # VSCode repo settings
 .vscode
+
+/src/styles/doc.txt
+/src/services/API
+/src/services/jeison
