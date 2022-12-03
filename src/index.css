@@ -1,13 +1,76 @@
+@import url('https://fonts.googleapis.com/css2?family=Days+One&family=Jura:wght@300&display=swap');
+
 body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  background-attachment: fixed;
+  background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('./imgs/311964.jpg');
+  background-size:cover;
+  color: rgb(255, 232, 31);
+  font-family: 'Days One', 'Jura', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  font-size: 48px;
+  letter-spacing: 0.04em;
+  line-height: 20px;
+  text-shadow: 0px 4px 7px rgba(255,232,251,1);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+button {
+  background: rgba(25, 25, 25, 0.781);
+  border-radius: 5px;
+  box-shadow: 0 0 26px rgba(24, 24, 75, 0.8);
+  color: white;
+  font-size: 16px;
+  font-family: 'Jura';
+  height: 40px;
+  letter-spacing: 0.03em;
+  margin: 1%;
+  transition: all 0.3s ease-in-out 0s;
+  width: 15%; 
+}
+
+button:hover {
+  background-color: rgba(141, 141, 141, 0.5); 
+  font-weight: 900;
+  /* box-shadow: 0 10px 100px #03e9f4; */
+  /* background: #03e9f4; */
+}
+
+button:disabled {
+  background-color: rgba(31, 30, 30, 0.5);
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+input , select {
+  border: 0.5px solid #e2e3e400;
+  border-radius: 7px;
+  box-shadow: 0 0 26px rgba(59, 59, 59, 0.8);
+  color: #003be5;
+  font-family: 'Jura';
+  font-size: 14px;
+  height: 28px;
+  line-height: 20px;
+  margin: 8px;
+  text-align: center;
+  /* width: 80%; */
+}
+
+th , td , tr {
+  font-size: 10px;
+  text-shadow: none;
+}
+
+tbody {
+  font-family: 'Jura';
+}
+
+p, label {
+  color: rgb(233, 233, 233);  
+  font-family: 'Jura';
+  font-size: 14px;
+  text-shadow: 3px 3px 15px rgba(255, 255, 255, 0.445);
 }

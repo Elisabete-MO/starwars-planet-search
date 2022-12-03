@@ -1,10 +1,22 @@
 import React from 'react';
+// import { Route, Switch } from 'react-router-dom';
 import './App.css';
+import Header from './components/Header';
+import PlanetsForm from './components/PlanetsForm';
+import Table from './components/Table';
 
-function App() {
+export default function App() {
   return (
-    <span>Hello, App!</span>
+    <>
+      {/* <Switch> */}
+        {/* <Route path="/loading" component={ Loading } /> */}
+        {/* {<Route exact path="/" component={ App } /> */}
+      {/* </Switch> */}
+      <div className="content">
+        <Header />
+        <PlanetsForm />
+        <Table />
+      </div>
+    </>
   );
 }
-
-export default App;

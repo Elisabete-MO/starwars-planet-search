@@ -1,0 +1,15 @@
+.box_header {
+  background: rgba(160, 160, 160, 0);
+  border-bottom: solid 2px rgba(41, 40, 40, 0.8);
+  border-radius: 20px;
+  box-shadow: 0 0 25px rgba(160, 160, 160, 0.9);
+  display: flex;
+  flex-flow: row nowrap;
+  height: 20%;
+  justify-content: space-around;
+  text-align: center;
+}
+
+.h1_header {
+  font-size: 40px;
+}
