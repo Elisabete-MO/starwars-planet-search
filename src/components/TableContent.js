@@ -66,7 +66,6 @@ export default function TableContent() {
             {/* <td>
           {
             (value) === ''              Number.isNaN(value)
-
               ? '0.00'
               : parseFloat(value).toFixed(2)
           }

@@ -48,7 +48,7 @@ export default function PlanetsForm() {
           <select
             className="selectColumn"
             data-testid="column-filter"
-            id="selectCurrencies"
+            id="selectColumn"
             name="column"
             value={ selected.column }
             onChange={ (e) => setSelected({ ...selected, column: e.target.value }) }

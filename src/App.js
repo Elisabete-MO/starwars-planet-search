@@ -1,18 +1,17 @@
 import React from 'react';
-import { Route, Switch } from 'react-router-dom';
+// import { Route, Switch } from 'react-router-dom';
 import './App.css';
-import Loading from './pages/Loading';
 import Header from './components/Header';
 import PlanetsForm from './components/PlanetsForm';
 import Table from './components/Table';
 
-function App() {
+export default function App() {
   return (
     <>
-      <Switch>
-        <Route path="/loading" component={ Loading } />
+      {/* <Switch> */}
+        {/* <Route path="/loading" component={ Loading } /> */}
         {/* {<Route exact path="/" component={ App } /> */}
-      </Switch>
+      {/* </Switch> */}
       <div className="content">
         <Header />
         <PlanetsForm />
@@ -21,5 +20,3 @@ function App() {
     </>
   );
 }
-
-export default App;
