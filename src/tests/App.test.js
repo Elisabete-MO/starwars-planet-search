@@ -17,6 +17,8 @@ describe('Testa o componente <App />', () => {
   const idValueFilter = 'value-filter';
   const idBtnFilter = 'button-filter';
   const idComparisonFilter = 'comparison-filter';
+  const idColumnSort = 'column-sort';
+  const idBtnColumnSort = 'column-sort-button';
   const arrayNumbers = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13];
   const data = results;
   const search = results;
@@ -305,7 +307,7 @@ describe('Testa o componente <App />', () => {
     expect(screen.getAllByRole('row').length).toBe(arrayNumbers[11]);
   });
 
-  test('Se a tabela apresenta corretamente os dados utilizando as informações de três filtros', async () => {
+  test('Adicione três filtros e clique no botão Remover Filtragens, todos os filtros deverão ser removidos', async () => {
     render(<App />);
     userEvent.selectOptions(screen.getByTestId(idComparisonFilter), 'maior que');
     userEvent.selectOptions(screen.getByTestId(idColumnFilter), 'diameter');
@@ -327,5 +329,80 @@ describe('Testa o componente <App />', () => {
     userEvent.click(screen.getByTestId(idBtnFilter));
     expect(await screen.findByText(/tatooine/i)).toBeInTheDocument();
     expect(screen.getAllByRole('row').length).toBe(arrayNumbers[2]);
+    userEvent.click(screen.getByTestId('button-remove-filters'));
+    expect(await screen.findByText(/endor/i)).toBeInTheDocument();
+    expect(screen.getAllByRole('row').length).toBe(arrayNumbers[11]);
+  });
+
+  test('Ordene os planetas do maior período orbital para o menor período orbital', async () => {
+    render(<App />);
+    userEvent.selectOptions(screen.getByTestId(idColumnSort), 'orbital_period');
+    userEvent.click(screen.getByTestId('column-sort-input-desc'));
+    userEvent.click(screen.getByTestId(idBtnColumnSort));
+    expect(await screen.findByText(/bespin/i)).toBeInTheDocument();
+    const arrayPlanets = screen.getAllByTestId('planet-name');
+    expect(arrayPlanets[0].innerHTML).toBe('Bespin');
+    expect(arrayPlanets[1].innerHTML).toBe('Yavin IV');
+    expect(arrayPlanets[2].innerHTML).toBe('Hoth');
+    expect(arrayPlanets[3].innerHTML).toBe('Kamino');
+    expect(arrayPlanets[4].innerHTML).toBe('Endor');
+    expect(arrayPlanets[5].innerHTML).toBe('Coruscant');
+    expect(arrayPlanets[6].innerHTML).toBe('Alderaan');
+    expect(arrayPlanets[7].innerHTML).toBe('Dagobah');
+    expect(arrayPlanets[8].innerHTML).toBe('Naboo');
+    expect(arrayPlanets[9].innerHTML).toBe('Tatooine');
+  });
+
+  test('Ordene os planetas do menor diâmetro para o maior diâmetro', async () => {
+    render(<App />);
+    userEvent.selectOptions(screen.getByTestId(idColumnSort), 'diameter');
+    userEvent.click(screen.getByTestId('column-sort-input-asc'));
+    userEvent.click(screen.getByTestId(idBtnColumnSort));
+    expect(await screen.findByText(/bespin/i)).toBeInTheDocument();
+    const arrayPlanets = screen.getAllByTestId('planet-name');
+    expect(arrayPlanets[0].innerHTML).toBe('Endor');
+    expect(arrayPlanets[1].innerHTML).toBe('Hoth');
+    expect(arrayPlanets[2].innerHTML).toBe('Dagobah');
+    expect(arrayPlanets[3].innerHTML).toBe('Yavin IV');
+    expect(arrayPlanets[4].innerHTML).toBe('Tatooine');
+    expect(arrayPlanets[5].innerHTML).toBe('Naboo');
+    expect(arrayPlanets[6].innerHTML).toBe('Coruscant');
+    expect(arrayPlanets[7].innerHTML).toBe('Alderaan');
+    expect(arrayPlanets[8].innerHTML).toBe('Kamino');
+    expect(arrayPlanets[9].innerHTML).toBe('Bespin');
+  });
+
+  test('Ordene os planetas do mais populoso para o menos populoso', async () => {
+    render(<App />);
+    userEvent.selectOptions(screen.getByTestId(idColumnSort), 'population');
+    userEvent.click(screen.getByTestId('column-sort-input-desc'));
+    userEvent.click(screen.getByTestId(idBtnColumnSort));
+    expect(await screen.findByText(/bespin/i)).toBeInTheDocument();
+    const arrayPlanets = screen.getAllByTestId('planet-name');
+    expect(arrayPlanets[0].innerHTML).toBe('Coruscant');
+    expect(arrayPlanets[1].innerHTML).toBe('Naboo');
+    expect(arrayPlanets[2].innerHTML).toBe('Alderaan');
+    expect(arrayPlanets[3].innerHTML).toBe('Kamino');
+    expect(arrayPlanets[4].innerHTML).toBe('Endor');
+    expect(arrayPlanets[5].innerHTML).toBe('Bespin');
+    expect(arrayPlanets[6].innerHTML).toBe('Tatooine');
+    expect(arrayPlanets[7].innerHTML).toBe('Yavin IV');
+  });
+
+  test('Ordene os planetas do menos populoso para o mais populoso', async () => {
+    render(<App />);
+    userEvent.selectOptions(screen.getByTestId(idColumnSort), 'population');
+    userEvent.click(screen.getByTestId('column-sort-input-asc'));
+    userEvent.click(screen.getByTestId(idBtnColumnSort));
+    expect(await screen.findByText(/bespin/i)).toBeInTheDocument();
+    const arrayPlanets = screen.getAllByTestId('planet-name');
+    expect(arrayPlanets[0].innerHTML).toBe('Yavin IV');
+    expect(arrayPlanets[1].innerHTML).toBe('Tatooine');
+    expect(arrayPlanets[2].innerHTML).toBe('Bespin');
+    expect(arrayPlanets[3].innerHTML).toBe('Endor');
+    expect(arrayPlanets[4].innerHTML).toBe('Kamino');
+    expect(arrayPlanets[5].innerHTML).toBe('Alderaan');
+    expect(arrayPlanets[6].innerHTML).toBe('Naboo');
+    expect(arrayPlanets[7].innerHTML).toBe('Coruscant');
   });
 });
