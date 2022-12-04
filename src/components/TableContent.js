@@ -9,14 +9,13 @@ export default function TableContent() {
     const filterResults = search.filter((el) => {
       const filterApp = selectedFilters.map(({ column, comparison, value }) => { // Acessar uma linha do filtro
         switch (comparison) {
-        case 'maior que':
-          return Number(el[column]) > Number(value);
+        // case 'maior que':
         case 'menor que':
           return Number(el[column]) < Number(value);
         case 'igual a':
           return Number(el[column]) === Number(value);
         default:
-          return true;
+          return Number(el[column]) > Number(value);
         }
       });
       return filterApp.every((e) => e);
